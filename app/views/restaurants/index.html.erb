@@ -4,6 +4,6 @@
     <p><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></p>
   <% end %>
 <% else %>
-No restaurants yet
+  No restaurants yet
 <% end %>
-<a href='#'>Add a restaurant</a>
+<%= link_to 'Add a restaurant', new_restaurant_path %>

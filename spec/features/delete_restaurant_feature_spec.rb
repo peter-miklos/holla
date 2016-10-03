@@ -12,7 +12,8 @@ feature 'restaurants' do
 
     click_link('Dirty Bones')
     expect(current_path).to match(/restaurants\/\d+/)
-    click_button('Edit restaurant')
+    expect(page).to have_content("Dirty Bones")
+    click_link("Edit Dirty Bones")
     expect(current_path).to match(/restaurants\/\d+\/edit/)
     
     end
