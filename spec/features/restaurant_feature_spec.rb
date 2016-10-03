@@ -20,8 +20,8 @@ feature 'restaurants' do
 
   context "restaurants are visible in the list of restaurants" do
     scenario "should display 2 restaurants after creating them" do
-      Restaurant.create(name: "KFC", rating: 4, address: "London", description: "chicken")
-      Restaurant.create(name: "Burger King", rating: 3, address: "Bristol", description: "Burger")
+      Restaurant.create(name: "KFC", address: "London", description: "chicken")
+      Restaurant.create(name: "Burger King", address: "Bristol", description: "Burger")
       visit "/restaurants"
       expect(page).to have_content("KFC")
       expect(page).to have_content("Burger King")
@@ -43,13 +43,28 @@ feature 'restaurants' do
 
   context "viewing restaurants" do
 
-    let!(:kfc){ Restaurant.create(name: "KFC", rating: 4, address: "London", description: "chicken") }
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken") }
 
     scenario "user can view a restaurant page" do
       visit '/restaurants'
       click_link 'KFC'
       expect(page).to have_content "KFC"
       expect(current_path).to eq "/restaurants/#{kfc.id}"
+    end
+  end
+
+  context "editing restaurants" do
+    before { Restaurant.create(name: "KFC", address: "London", description: "chicken") }
+
+    scenario "user can edit a restaurant" do
+      visit '/restaurants'
+      click_link 'Edit KFC'
+      fill_in('Name', with: "Dirty Bones")
+      fill_in("Description", with: "Dirty American food")
+      fill_in("Address", with: "West London")
+      click_button 'Update Restaurant'
+      expect(page).to have_content 'Dirty Bones'
+      expect(current_path).to eq '/restaurants'
     end
   end
 end
