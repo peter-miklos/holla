@@ -58,6 +58,7 @@ feature 'restaurants' do
 
     scenario "user can edit a restaurant" do
       visit '/restaurants'
+      click_link 'KFC'
       click_link 'Edit KFC'
       fill_in('Name', with: "Dirty Bones")
       fill_in("Description", with: "Dirty American food")
@@ -67,4 +68,25 @@ feature 'restaurants' do
       expect(current_path).to eq '/restaurants'
     end
   end
+
+  context "destroying restaurants" do
+    scenario 'should delete restaurant from db when restaurant deltes in edit page' do
+      visit '/restaurants/new'
+      expect(page).to have_content('Name')
+      fill_in('restaurant_name', :with => "Dirty Bones")
+      fill_in('restaurant_description', :with => "Dirty")
+      fill_in('restaurant_address', :with => "Kensington Church Street")
+      click_button('Create Restaurant')
+      expect(current_path).to eq '/restaurants'
+
+      click_link('Dirty Bones')
+      expect(current_path).to match(/restaurants\/\d+/)
+      expect(page).to have_content("Dirty Bones")
+      click_link("Edit Dirty Bones")
+      expect(current_path).to match(/restaurants\/\d+\/edit/)
+      click_link("Delete listing")
+      expect(current_path).to eq '/restaurants'
+      expect(page).to_not have_content('Dirty Bones')
+      end
+    end
 end

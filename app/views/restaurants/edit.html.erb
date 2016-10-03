@@ -7,3 +7,4 @@
   <%= r.text_field(:description) %>
   <%= r.submit %>
 <% end %>
+<%= link_to "Delete listing", restaurant_path(@restaurant), method: :delete %>
