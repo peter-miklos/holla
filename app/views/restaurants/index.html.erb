@@ -1,7 +1,7 @@
 <% if @restaurants.any? %>
   <% @restaurants.each do |restaurant| %>
     <h2><%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
-    <!-- <p><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></p> -->
+    <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
   <% end %>
 <% else %>
   No restaurants yet
