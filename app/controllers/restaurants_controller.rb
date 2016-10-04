@@ -1,4 +1,7 @@
 class RestaurantsController < ApplicationController
+
+  before_action :authenticate_user!, :except => [:index, :show]
+
   def index
     @restaurants = Restaurant.all
     # raise 'Hello from the index action'
@@ -11,6 +14,9 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    puts current_user
+    @restaurant.user = current_user
+
     if @restaurant.save
       redirect_to '/restaurants'
     else
