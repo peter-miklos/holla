@@ -8,8 +8,8 @@ describe Restaurant, type: :model do
   end
 
   it "does not allow duplicate restaurant names" do
-    Restaurant.create(name: "Dirty Bones")
-    restaurant = Restaurant.new(name: "Dirty Bones")
+    Restaurant.create(name: "Dirty Bones", user_id: 1)
+    restaurant = Restaurant.new(name: "Dirty Bones", user_id: 1)
     expect(restaurant).to have(1).error_on(:name)
   end
 end

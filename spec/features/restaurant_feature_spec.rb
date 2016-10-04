@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 feature 'restaurants' do
+
+let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
+
+  before do
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+  end
+
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -11,7 +23,7 @@ feature 'restaurants' do
 
   context 'restaurant has been added' do
     scenario '' do
-      Restaurant.create(name: "Burger King")
+      Restaurant.create(name: "Burger King", user_id: user.id)
       visit '/restaurants'
       expect(page).to have_content("Burger King")
       expect(page).not_to have_content("No restaurants yet")
@@ -20,8 +32,8 @@ feature 'restaurants' do
 
   context "restaurants are visible in the list of restaurants" do
     scenario "should display 2 restaurants after creating them" do
-      Restaurant.create(name: "KFC", address: "London", description: "chicken")
-      Restaurant.create(name: "Burger King", address: "Bristol", description: "Burger")
+      Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id)
+      Restaurant.create(name: "Burger King", address: "Bristol", description: "Burger", user_id: user.id)
       visit "/restaurants"
       expect(page).to have_content("KFC")
       expect(page).to have_content("Burger King")
@@ -59,7 +71,7 @@ feature 'restaurants' do
 
   context "viewing restaurants" do
 
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken") }
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
 
     scenario "user can view a restaurant page" do
       visit '/restaurants'
@@ -70,7 +82,7 @@ feature 'restaurants' do
   end
 
   context "editing restaurants" do
-    before { Restaurant.create(name: "KFC", address: "London", description: "chicken") }
+    before { Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
 
     scenario "user can edit a restaurant" do
       visit '/restaurants'
