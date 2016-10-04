@@ -1,0 +1,7 @@
+<% if @reviews.any? %>
+  <% @reviews.each do |review| %>
+    <h2><%= review.comment %> \ <%= review.rating %></h2>
+  <% end %>
+<% else %>
+  No review yet
+<% end %>
