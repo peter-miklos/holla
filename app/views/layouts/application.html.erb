@@ -3,19 +3,37 @@
   <head>
     <title>Holla</title>
     <%= csrf_meta_tags %>
-
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-    <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign in", new_user_session_path %>
-      <%= link_to "Sign up", new_user_registration_path %>
-      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
-    <% end %>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <span class="glyphicon glyphicon glyphicon-cutlery"></span>Holla
+                </a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li><a href="/restaurants/new">Add restaurant</a></li>
+                <li><a href="/restaurants">Restaurants</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li>
+                <li><%= link_to "Sign in", new_user_session_path %></li>
+                <li><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></li>
+              <% end %>
+            </ul>
+        </div>
+    </nav>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
