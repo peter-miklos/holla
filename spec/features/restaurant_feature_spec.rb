@@ -31,7 +31,8 @@ feature 'restaurants' do
 
   context "user can add a new restaurant" do
     scenario 'adding a new restaurant' do
-      visit '/restaurants/new'
+      visit '/restaurants'
+      click_link "Add a restaurant"
       expect(page).to have_content('Name')
       fill_in('restaurant_name', :with => "Dirty Bones")
       fill_in('restaurant_description', :with => "Dirty")
@@ -39,6 +40,21 @@ feature 'restaurants' do
       click_button('Create Restaurant')
       expect(current_path).to eq '/restaurants'
     end
+
+    context "invalid restaurant" do
+      scenario "adding a new restaurant with a too short name" do
+        visit "/restaurants"
+        click_link "Add a restaurant"
+        fill_in('restaurant_name', :with => "Mc")
+        fill_in('restaurant_description', :with => "Dirty")
+        fill_in('restaurant_address', :with => "Kensington Church Street")
+        click_button('Create Restaurant')
+
+        expect(page).not_to have_css("h2", text: "Mc")
+        expect(page).to have_content("error")
+      end
+    end
+
   end
 
   context "viewing restaurants" do
