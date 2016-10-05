@@ -95,6 +95,28 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
       expect(page).to have_content 'Dirty Bones'
       expect(current_path).to eq '/restaurants'
     end
+
+    scenario "user cannot edit a restaurant owned by another user" do
+      visit "/restaurants"
+      click_link "Add a restaurant"
+      fill_in('restaurant_name', :with => "Burger King")
+      fill_in('restaurant_description', :with => "Dirty")
+      fill_in('restaurant_address', :with => "Kensington Church Street")
+      click_button('Create Restaurant')
+      click_link "Sign out"
+
+      visit('/')
+      click_link('Sign in')
+      fill_in('Email', with: 'Laura@troll.com')
+      fill_in('Password', with: '123456')
+      click_button('Log in')
+
+      visit '/restaurants'
+      click_link 'Burger King'
+
+      expect(page).not_to have_content("Edit Burger King")
+
+    end
   end
 
   context "destroying restaurants" do
