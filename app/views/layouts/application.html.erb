@@ -36,13 +36,18 @@
     </nav>
 
     <div class="container">
-      <p id="notice"><%= notice %></p>
+      <% if notice %>
+        <div class="alert alert-info" id="notice">
+          <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+        </div>
+      <% end %>
+
       <% if alert %>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" id="alert">
           <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
         </div>
       <% end %>
-      
+
       <%= yield %>
     </div>
 
