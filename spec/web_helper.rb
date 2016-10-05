@@ -1,8 +1,8 @@
-def sign_in(user)
+def sign_in(email: "Laura@troll.com", password: "123456")
   visit('/')
   click_link('Sign in')
-  fill_in('user_email', with: user[:email])
-  fill_in('user_password', with: user[:password])
+  fill_in('user_email', with: email)
+  fill_in('user_password', with: password)
   click_button('Log in')
 end
 

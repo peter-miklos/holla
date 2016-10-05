@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'restaurants' do
 
+  let!(:user1){ User.create(email: "Laura@troll.com", password: "123456") }
+
   context "No restaurants exist yet" do
 
     scenario "It says that there are no restaurants yet" do
@@ -14,8 +16,8 @@ feature 'restaurants' do
   end
 
   context "A restaurant exists" do
-    let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user.id) }
+
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user1.id) }
 
     context "When no user is signed in -" do
 
@@ -69,7 +71,7 @@ feature 'restaurants' do
     end
 
     scenario "A user can edit a restaurant that she owns" do
-      sign_in(email: 'Laura@troll.com', password: '123456')
+      sign_in
       visit '/restaurants'
       click_link 'KFC'
       expect(page).to have_link("Edit KFC")
@@ -84,7 +86,7 @@ feature 'restaurants' do
     end
 
     scenario "A user can delete a restaurants that she owns" do
-      sign_in(email: 'Laura@troll.com', password: '123456')
+      sign_in
       visit '/restaurants'
       click_link 'KFC'
 
