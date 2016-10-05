@@ -3,6 +3,9 @@
 <p><%= @restaurant.address %></p>
 <p><%= @restaurant.rating %></p>
 <% if (current_user && current_user.id == @restaurant.user_id)%>
-<%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant) %>
+  <%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant) %>
 <% end %>
+
 <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
+
+<%= link_to "View reviews", restaurant_reviews_path(@restaurant) %>
