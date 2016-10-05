@@ -145,6 +145,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
     end
 
     scenario "user cannot delete a restaurant owned by another user" do
-
+      visit "/restaurants/#{kfc.id}/edit"
+      expect(page).not_to have_content("Delete listing")
     end
 end
