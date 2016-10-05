@@ -25,7 +25,7 @@
 
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
-                <li><%= link_to "Signed in as #{current_user.email}", restaurants_path %></li>
+                <li><%= link_to "Signed in as #{current_user.email}", edit_user_registration_path %></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               <% else %>
                 <li><%= link_to "Sign up", new_user_registration_path %></li>
@@ -35,10 +35,23 @@
         </div>
     </nav>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="container">
+      <% if notice %>
+        <div class="alert alert-info" id="notice">
+          <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert alert-danger" id="alert">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
 
 
-    <%= yield %>
+
   </body>
 </html>

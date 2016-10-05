@@ -36,7 +36,7 @@ class RestaurantsController < ApplicationController
       @restaurant.update(restaurant_params)
       redirect_to "/restaurants/#{params[:id]}"
     else
-      flash[:notice] = "Sorry, you can only edit restaurants you have created"
+      flash[:alert] = "Sorry, you can only edit restaurants you have created"
       redirect_to "/restaurants/#{params[:id]}"
     end
   end
@@ -49,7 +49,7 @@ class RestaurantsController < ApplicationController
       flash[:notice] = "Restaurant deleted!"
     else
       redirect_to "/restaurants"
-      flash[:notice] = "Sorry, you can only delete restaurants you have created"
+      flash[:alert] = "Sorry, you can only delete restaurants you have created"
     end
   end
 
