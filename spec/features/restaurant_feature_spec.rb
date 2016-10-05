@@ -82,9 +82,17 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
   end
 
   context "editing restaurants" do
-    before { Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
+
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
 
     scenario "user can edit a restaurant" do
+      visit "/restaurants"
+      click_link "Sign out"
+      click_link "Sign in"
+      fill_in('Email', with: 'Laura@troll.com')
+      fill_in('Password', with: '123456')
+      click_button('Log in')
+
       visit '/restaurants'
       click_link 'KFC'
       click_link 'Edit KFC'
@@ -94,6 +102,13 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
       click_button 'Update Restaurant'
       expect(page).to have_content 'Dirty Bones'
       expect(current_path).to eq '/restaurants'
+    end
+
+    scenario "user cannot edit a restaurant owned by another user" do
+      visit '/restaurants'
+      click_link 'KFC'
+      expect(current_path).to eq("/restaurants/#{kfc.id}")
+      expect(page).not_to have_content("Edit KFC")
     end
   end
 
