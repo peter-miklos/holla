@@ -14,11 +14,17 @@ feature "review" do
     end
 
     scenario "user cannot review their owned restaurant" do
-      visit("/restaurants")
-      click_link("KFC")
-      click_link("Add review")
+      visit("/restaurants/#{kfc.id}/reviews/new")
 
       expect(page).to have_content("Sorry, you cannot review your own restaurant")
+      expect(current_path).to eq("/restaurants/#{kfc.id}")
+    end
+
+    scenario "user cannot see the 'Add review' link at his/her own restaurant" do
+      visit("/restaurants")
+      click_link("KFC")
+
+      expect(page).not_to have_content("Add review")
       expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
   end
