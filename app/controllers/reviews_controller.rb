@@ -40,7 +40,22 @@ class ReviewsController < ApplicationController
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.find(params[:id])
+    if current_user.id == @review.user_id
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @review = Review.find(params[:id])
+    else
+      redirect_to "/restaurants/#{@restaurant.id}/reviews"
+      flash[:notice] = "Sorry, you can only edit reviews you have created"
+    end
   end
+
+  def update
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    redirect_to "/restaurants/#{@restaurant.id}/reviews"
+  end
+
 
   def destroy
     @restaurant = Restaurant.find(params[:restaurant_id])
