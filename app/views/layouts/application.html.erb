@@ -37,7 +37,12 @@
 
     <div class="container">
       <p id="notice"><%= notice %></p>
-      <p id="alert"><%= alert %></p>
+      <% if alert %>
+        <div class="alert alert-danger">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
+        </div>
+      <% end %>
+      
       <%= yield %>
     </div>
 
