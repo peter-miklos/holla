@@ -1,8 +1,12 @@
 class ReviewsController < ApplicationController
 
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @review = Review.new
+    if current_user
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @review = Review.new
+    else
+      redirect_to new_user_session_path, alert: "Please log in to add a review."
+    end
   end
 
   def create
@@ -27,6 +31,7 @@ class ReviewsController < ApplicationController
   end
 
   def index
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = Review.where(restaurant_id: params[:restaurant_id])
   end
 
