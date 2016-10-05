@@ -1,11 +1,13 @@
 class ReviewsController < ApplicationController
 
   def new
-    if current_user
-      @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    if (current_user && current_user.id != @restaurant.user.id)
       @review = Review.new
+    elsif (current_user && current_user.id == @restaurant.user.id)
+      redirect_to "/restaurants/#{params[:restaurant_id]}", alert: "Sorry, you cannot review your own restaurant"
     else
-      redirect_to new_user_session_path, alert: "Please log in to add a review."
+      redirect_to user_session_path, alert: "Please log in to add a review."
     end
   end
 

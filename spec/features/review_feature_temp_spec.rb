@@ -18,7 +18,7 @@ feature "review" do
       click_link("KFC")
       click_link("Add review")
 
-      expect(page).to have_content("Sorry, you cannot review qour own restaurant")
+      expect(page).to have_content("Sorry, you cannot review your own restaurant")
       expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
   end
