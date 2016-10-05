@@ -112,7 +112,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
       fill_in("Address", with: "West London")
       click_button 'Update Restaurant'
       expect(page).to have_content 'Dirty Bones'
-      expect(current_path).to eq '/restaurants'
+      expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
 
     scenario "user cannot edit a restaurant owned by another use" do
