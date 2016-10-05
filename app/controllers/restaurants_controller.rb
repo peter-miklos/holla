@@ -32,14 +32,25 @@ class RestaurantsController < ApplicationController
 
   def update
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.update(restaurant_params)
-    redirect_to '/restaurants'
+    if current_user.id == @restaurant.user.id
+      @restaurant.update(restaurant_params)
+      redirect_to "/restaurants/#{params[:id]}"
+    else
+      flash[:notice] = "Sorry, you can only edit restaurants you have created"
+      redirect_to "/restaurants/#{params[:id]}"
+    end
   end
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
-    redirect_to '/restaurants'
+    if current_user.id == @restaurant.user.id
+      @restaurant.destroy
+      redirect_to "/restaurants"
+      flash[:notice] = "Restaurant deleted!"
+    else
+      redirect_to "/restaurants"
+      flash[:notice] = "Sorry, you can only delete restaurants you have created"
+    end
   end
 
   private
