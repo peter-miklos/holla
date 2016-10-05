@@ -28,7 +28,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
       click_link("Delete listing")
       visit '/restaurants'
       expect(page).to have_content 'No restaurants yet'
-      expect(page).to have_link 'Add a restaurant'
+      expect(page).to have_link 'Add restaurant'
     end
   end
 
@@ -55,7 +55,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
   context "user can add a new restaurant" do
     scenario 'adding a new restaurant' do
       visit '/restaurants'
-      click_link "Add a restaurant"
+      click_link "Add restaurant"
       expect(page).to have_content('Name')
       fill_in('restaurant_name', :with => "Dirty Bones")
       fill_in('restaurant_description', :with => "Dirty")
@@ -67,7 +67,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
     context "invalid restaurant" do
       scenario "adding a new restaurant with a too short name" do
         visit "/restaurants"
-        click_link "Add a restaurant"
+        click_link "Add restaurant"
         fill_in('restaurant_name', :with => "Mc")
         fill_in('restaurant_description', :with => "Dirty")
         fill_in('restaurant_address', :with => "Kensington Church Street")
