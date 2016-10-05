@@ -115,7 +115,7 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
       expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
 
-    scenario "user cannot edit a restaurant owned by another use" do
+    scenario "user cannot edit a restaurant owned by another user" do
       visit '/restaurants'
       click_link 'KFC'
       expect(current_path).to eq("/restaurants/#{kfc.id}")
