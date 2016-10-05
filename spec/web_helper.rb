@@ -6,18 +6,12 @@ def sign_in(email: "Laura@troll.com", password: "123456")
   click_button('Log in')
 end
 
-def sign_up(user)
+def sign_up(email: "test@example.com", password: "123456", password_confirmation: "123456")
   visit('/')
   click_link('Sign up')
-  fill_in('user_email', with: user[:email])
-  fill_in('user_password', with: user[:password])
-
-  if user[:password_confirmation]
-    fill_in('user_password_confirmation', with: user[:password_confirmation])
-  else
-    fill_in('user_password_confirmation', with: user[:password])
-  end
-
+  fill_in('user_email', with: email)
+  fill_in('user_password', with: password)
+  fill_in('user_password_confirmation', with: password_confirmation)
   click_button('Sign up')
 end
 

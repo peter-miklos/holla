@@ -3,11 +3,12 @@ require 'rails_helper'
 feature 'restaurants' do
 
   let!(:user1){ User.create(email: "Laura@troll.com", password: "123456") }
+  let!(:user2){ User.create(email: "test@example.com", password: "123456") }
 
   context "No restaurants exist yet" do
 
     scenario "It says that there are no restaurants yet" do
-      sign_up(email: "test@example.com", password: "testtest")
+      sign_in
       visit '/restaurants'
       expect(page).to have_content("No restaurants yet")
       expect(page).to have_link("Add restaurant")
@@ -32,9 +33,7 @@ feature 'restaurants' do
     end
 
     context "When a user is signed in -" do
-      before do
-        sign_up(email: "test@example.com", password: "testtest")
-      end
+      before {sign_in(email: "test@example.com")}
 
       scenario "user can view a restaurant page" do
         visit '/restaurants'
@@ -63,7 +62,7 @@ feature 'restaurants' do
     end
 
     scenario "You can not edit a restaurant you do not own" do
-      sign_up(email: "test@example.com", password: "testtest")
+      sign_in(email: "test@example.com")
       visit '/restaurants'
       click_link 'KFC'
       expect(page).not_to have_content("Edit KFC")
@@ -101,7 +100,7 @@ feature 'restaurants' do
     end
 
     scenario "A user can not delete a restaurant that he does not own" do
-      sign_up(email: "test@example.com", password: "testtest")
+      sign_in(email: "test@example.com")
       visit "/restaurants/#{kfc.id}/edit"
       expect(page).not_to have_link("Delete listing")
     end
