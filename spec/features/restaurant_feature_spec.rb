@@ -8,7 +8,7 @@ feature 'restaurants' do
       sign_up(email: "test@example.com", password: "testtest")
       visit '/restaurants'
       expect(page).to have_content("No restaurants yet")
-      expect(page).to have_link("Add a restaurant")
+      expect(page).to have_link("Add restaurant")
     end
 
   end
@@ -42,7 +42,7 @@ feature 'restaurants' do
 
       scenario 'adding a new restaurant' do
         visit '/restaurants'
-        click_link "Add a restaurant"
+        click_link "Add restaurant"
         expect(page).to have_content('Name')
         add_restaurant(name: "Dirty Bones", address: "Kensington Church Street", description: "Dirty-filthy")
         expect(current_path).to eq '/restaurants'

@@ -33,7 +33,7 @@ end
 
 def add_restaurant(restaurant)
   visit('/restaurants')
-  click_link('Add a restaurant')
+  click_link('Add restaurant')
   fill_in('restaurant_name', with: restaurant[:name])
   fill_in('restaurant_description', with: restaurant[:description])
   fill_in('restaurant_address', with: restaurant[:address])
