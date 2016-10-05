@@ -15,7 +15,7 @@ feature 'restaurants' do
 
   context "A restaurant exists" do
     let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff", user_id: user.id) }
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user.id) }
 
     context "When no user is signed in -" do
 
