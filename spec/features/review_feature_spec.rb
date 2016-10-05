@@ -75,18 +75,15 @@ feature "reviews" do
 
       end
 
-      scenario "user cannot delete another user's review" do
+      scenario "user cannot delete another user's review because the link is not available" do
         visit('/')
         click_link("Sign out")
         sign_in(email: 'tim@troll.com', password: '123456')
 
         visit "/restaurants/#{kfc.id}/reviews"
-        click_link "Edit review"
-        click_link "Delete review"
-        expect(current_path).to eq "/restaurants/#{kfc.id}/reviews"
-        expect(page).to have_content "Ok chicken"
-        expect(page).to have_content "Sorry, you can only delete reviews you have created"
-
+        expect(page).not_to have_link("Edit review")
+        expect(page).to have_content("Ok chicken")
+        expect(page).to have_link("Return to KFC")
       end
     end
   end
