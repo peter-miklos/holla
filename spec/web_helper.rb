@@ -25,6 +25,12 @@ def sign_out
   click_link('Sign out')
 end
 
+def add_rating(rating)
+  fill_in('Comment', with: rating[:comment])
+  select(rating[:number].to_s, from: "Rating")
+  click_button "Create Review"
+end
+
 def add_restaurant(restaurant)
   visit('/restaurants')
   click_link('Add a restaurant')
