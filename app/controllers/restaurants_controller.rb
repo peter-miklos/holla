@@ -4,17 +4,14 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
-    # raise 'Hello from the index action'
   end
 
   def new
     @restaurant = Restaurant.new
-    # this is going to need to be changed when user functionality is implimented
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    puts current_user
     @restaurant.user = current_user
 
     if @restaurant.save
