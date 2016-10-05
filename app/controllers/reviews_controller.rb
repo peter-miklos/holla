@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
       @restaurant = Restaurant.find(params[:restaurant_id])
       @review = Review.new
     else
-      redirect_to new_user_session_path, alert: "Please log in to add a review"
+      redirect_to new_user_session_path, alert: "Please log in to add a review."
     end
   end
 
