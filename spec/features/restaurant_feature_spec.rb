@@ -15,7 +15,7 @@ feature 'restaurants' do
 
   context "A restaurant exists" do
     let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff", user_id: user.id) }
 
     context "When no user is signed in -" do
 
@@ -23,6 +23,7 @@ feature 'restaurants' do
         visit '/restaurants'
         click_link 'KFC'
         expect(page).to have_content "KFC"
+        expect(page).to have_content "chicken and stuff 123"
         expect(current_path).to eq "/restaurants/#{kfc.id}"
       end
 
