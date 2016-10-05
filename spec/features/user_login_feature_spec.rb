@@ -3,14 +3,14 @@ require "rails_helper"
 feature "user login" do
 
   context "user not signed in" do
-    it "user can login and logout" do
+    scenario "user can login and logout" do
       visit "/"
       expect(page).to have_content("Sign up")
       expect(page).to have_content("Sign in")
     end
   end
 
-  it "should not see 'sign out' link" do
+  scenario "should not see 'sign out' link" do
       visit('/')
       expect(page).not_to have_link('Sign out')
     end
@@ -26,12 +26,13 @@ feature "user login" do
       click_button('Sign up')
     end
 
-    it "should see 'sign out' link" do
+    scenario "should see 'sign out' link and user email in nav bar" do
       visit('/')
       expect(page).to have_link('Sign out')
+      expect(page).to have_css("li", text: "Signed in as test@example.com")
     end
 
-    it "should not see a 'sign in' link and a 'sign up' link" do
+    scenario "should not see a 'sign in' link and a 'sign up' link" do
       visit('/')
       expect(page).not_to have_link('Sign in')
       expect(page).not_to have_link('Sign up')
