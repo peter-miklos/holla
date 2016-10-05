@@ -86,6 +86,13 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
     let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
 
     scenario "user can edit a restaurant" do
+      visit "/restaurants"
+      click_link "Sign out"
+      click_link "Sign in"
+      fill_in('Email', with: 'Laura@troll.com')
+      fill_in('Password', with: '123456')
+      click_button('Log in')
+
       visit '/restaurants'
       click_link 'KFC'
       click_link 'Edit KFC'
