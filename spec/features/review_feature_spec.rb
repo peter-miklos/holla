@@ -75,20 +75,46 @@ feature "reviews" do
 
       end
 
-      scenario "user cannot delete another user's review" do
-        visit('/')
+      scenario "user cannot delete another user's review because the link is not available" do
         click_link("Sign out")
         sign_in(email: 'tim@troll.com', password: '123456')
 
         visit "/restaurants/#{kfc.id}/reviews"
-        click_link "Edit review"
-        click_link "Delete review"
-        expect(current_path).to eq "/restaurants/#{kfc.id}/reviews"
-        expect(page).to have_content "Ok chicken"
-        expect(page).to have_content "Sorry, you can only delete reviews you have created"
-
+        expect(page).not_to have_link("Edit review")
+        expect(page).to have_content("Ok chicken")
+        expect(page).to have_link("Return to KFC")
       end
     end
+
+    context "updating reviews" do
+
+      let!(:review) {Review.create(rating: 3, comment: "Good onion rings",  user_id: user1.id, restaurant_id: bk.id)}
+
+      scenario 'a user can edit their own review' do
+        visit("/restaurants/#{bk.id}/reviews/")
+        click_link("Edit review")
+        fill_in("Comment", with: "awesome")
+        select(5, from: "Rating")
+        click_button("Update Review")
+        expect(current_path).to eq("/restaurants/#{bk.id}/reviews")
+        expect(page).to_not have_content("Good onion rings")
+        expect(page).to have_content("awesome")
+      end
+
+      scenario "user cannot see edit review button for other users review" do
+        click_link("Sign out")
+        sign_in(email: "tim@troll.com", password: "123456")
+        visit("/restaurants/#{bk.id}/reviews/")
+        expect(page).to_not have_content("Edit review")
+
+        visit "/restaurants/#{bk.id}/reviews/#{review.id}/edit"
+
+        expect(current_path).to eq "/restaurants/#{bk.id}/reviews"
+        expect(page).to have_content "Sorry, you can only edit reviews you have created"
+      end
+
+    end
+
   end
 
   context "not signed in" do
