@@ -115,16 +115,25 @@ let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chic
       expect(current_path).to eq '/restaurants'
     end
 
-    scenario "user cannot edit a restaurant owned by another user" do
+    scenario "user cannot edit a restaurant owned by another use" do
       visit '/restaurants'
       click_link 'KFC'
       expect(current_path).to eq("/restaurants/#{kfc.id}")
       expect(page).not_to have_content("Edit KFC")
     end
+
+  scenario "user cannot access the edit page of a restaurant owned by another user" do
+    visit "/restaurants/#{kfc.id}/edit"
+    fill_in('Name', with: "Dirty Bones")
+    fill_in("Description", with: "Dirty American food")
+    fill_in("Address", with: "West London")
+    click_button 'Update Restaurant'
+    expect(page).to have_content("Sorry, you can only edit restaurants you have created")
   end
+end
 
   context "destroying restaurants" do
-    scenario 'should delete restaurant from db when restaurant deltes in edit page' do
+    scenario 'should delete restaurant from db when restaurant deletes in edit page' do
       visit '/restaurants/new'
       expect(page).to have_content('Name')
       fill_in('restaurant_name', :with => "Dirty Bones")
