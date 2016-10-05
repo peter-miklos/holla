@@ -31,4 +31,24 @@ feature "reviews" do
     click_button "Create Review"
     expect(page).to have_content("laura@troll.com")
   end
+
+  scenario "A user can not add more than one review for any restaurant" do
+    visit "/restaurants/#{kfc.id}"
+    click_link "Add review"
+    select("4", from: "Rating")
+    fill_in("Comment", with: "Tasty chicken")
+    click_button "Create Review"
+    expect(page).to have_content("laura@troll.com")
+
+    visit "/restaurants/#{kfc.id}"
+    click_link "Add review"
+    select("5", from: "Rating")
+    fill_in("Comment", with: "Really tasty chicken")
+    click_button "Create Review"
+    expect(current_path).to eq "/restaurants/#{kfc.id}/reviews"
+    expect(page).to_not have_content("Really tasty chicken")
+    expect(page).to have_content("You have already reviewed this restaurant")
+  end
+
+
 end

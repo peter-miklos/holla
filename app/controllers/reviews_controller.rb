@@ -13,7 +13,11 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to "/restaurants/#{params[:restaurant_id]}/reviews"
     else
-      render "new"
+      if @review.errors[:user]
+        redirect_to "/restaurants/#{params[:restaurant_id]}/reviews", alert: "You have already reviewed this restaurant"
+      else
+        render "new"
+      end
     end
 
   end
