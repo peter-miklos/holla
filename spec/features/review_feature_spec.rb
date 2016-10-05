@@ -6,11 +6,10 @@ feature "reviews" do
 
   before do
     visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
+    click_link('Sign in')
+    fill_in('Email', with: 'Laura@troll.com')
+    fill_in('Password', with: '123456')
+    click_button("Log in")
   end
 
   scenario "user can add a review to a restaurant" do
