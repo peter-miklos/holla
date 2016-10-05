@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'restaurants' do
 
 let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
+let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
 
   before do
     visit('/')
@@ -15,6 +16,16 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
 
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
+      visit "/restaurants"
+      click_link "Sign out"
+      click_link "Sign in"
+      fill_in('Email', with: 'Laura@troll.com')
+      fill_in('Password', with: '123456')
+      click_button('Log in')
+      visit "/restaurants"
+      click_link("KFC")
+      click_link("Edit KFC")
+      click_link("Delete listing")
       visit '/restaurants'
       expect(page).to have_content 'No restaurants yet'
       expect(page).to have_link 'Add a restaurant'
@@ -32,10 +43,10 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
 
   context "restaurants are visible in the list of restaurants" do
     scenario "should display 2 restaurants after creating them" do
-      Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id)
+      Restaurant.create(name: "Pizza Express", address: "London", description: "pizza", user_id: user.id)
       Restaurant.create(name: "Burger King", address: "Bristol", description: "Burger", user_id: user.id)
       visit "/restaurants"
-      expect(page).to have_content("KFC")
+      expect(page).to have_content("Pizza Express")
       expect(page).to have_content("Burger King")
       expect(page).not_to have_content("No restaurants yet")
     end
@@ -131,5 +142,9 @@ let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
       expect(current_path).to eq '/restaurants'
       expect(page).to_not have_content('Dirty Bones')
       end
+    end
+
+    scenario "user cannot delete a restaurant owned by another user" do
+
     end
 end
