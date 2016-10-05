@@ -28,4 +28,49 @@ feature "review" do
       expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
   end
+
+
+  context "deleting reviews" do
+
+    let!(:review) {Review.create(rating: 3, comment: "Ok chicken",  user_id: user.id, restaurant_id: kfc.id)}
+
+    scenario "user can delete a review" do
+      visit('/')
+      click_link('Sign in')
+      fill_in('Email', with: 'laura@troll.com')
+      fill_in('Password', with: '123456')
+      click_button("Log in")
+
+
+      visit "/restaurants/#{kfc.id}/reviews"
+      click_link "Edit review"
+
+      expect(current_path).to eq "/restaurants/#{kfc.id}/reviews/#{review.id}/edit"
+
+      click_link "Delete review"
+
+      expect(current_path).to eq "/restaurants/#{kfc.id}/reviews"
+      expect(page).to_not have_content "Ok chicken"
+      expect(page).to have_content "Review successfully deleted!"
+
+    end
+
+    scenario "user cannot delete another user's review" do
+      visit('/')
+      click_link('Sign up')
+      fill_in('Email', with: 'test@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+
+      visit "/restaurants/#{kfc.id}/reviews"
+      click_link "Edit review"
+      click_link "Delete review"
+      expect(current_path).to eq "/restaurants/#{kfc.id}/reviews"
+      expect(page).to have_content "Ok chicken"
+      expect(page).to have_content "Sorry, you can only delete reviews you have created"
+
+    end
+
+  end
 end

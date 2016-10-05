@@ -37,6 +37,24 @@ class ReviewsController < ApplicationController
     @reviews = Review.where(restaurant_id: params[:restaurant_id])
   end
 
+  def edit
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = Review.find(params[:id])
+  end
+
+  def destroy
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:id])
+    if current_user.id == @review.user_id
+      @review.destroy
+      redirect_to "/restaurants/#{@restaurant.id}/reviews"
+      flash[:notice] = "Review successfully deleted!"
+    else
+      redirect_to "/restaurants/#{@restaurant.id}/reviews"
+      flash[:notice] = "Sorry, you can only delete reviews you have created"
+    end
+  end
+
   private
 
   def review_params

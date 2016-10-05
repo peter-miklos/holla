@@ -4,6 +4,7 @@
   <% @reviews.each do |review| %>
     <h2><%= review.comment %> \ <%= review.rating %></h2>
     <p> Review by <%= review.user.email %> </p>
+    <%= link_to "Edit review",  edit_restaurant_review_path(@restaurant,review) %></h2>
   <% end %>
 <% else %>
   No review yet
