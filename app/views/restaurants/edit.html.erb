@@ -1,0 +1,13 @@
+<%= form_for(@restaurant) do |r| %>
+  <%= r.label :name %>
+  <%= r.text_field(:name) %>
+  <%= r.label :address %>
+  <%= r.text_field(:address) %>
+  <%= r.label :description %>
+  <%= r.text_field(:description) %>
+  <%= r.submit %>
+<% end %>
+
+<% if (current_user && current_user.id == @restaurant.user_id)%>
+  <%= link_to "Delete listing", restaurant_path(@restaurant), method: :delete %>
+<% end %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Holla</title>
+    <%= csrf_meta_tags %>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <span class="glyphicon glyphicon glyphicon-cutlery"></span>Holla
+                </a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li><a href="/restaurants/new">Add restaurant</a></li>
+                <li><a href="/restaurants">Restaurants</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <li><%= link_to "Signed in as #{current_user.email}", restaurants_path %></li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li>
+                <li><%= link_to "Sign in", new_user_session_path %></li>
+              <% end %>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+      <p id="notice"><%= notice %></p>
+      <p id="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+
+
+
+  </body>
+</html>
