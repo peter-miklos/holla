@@ -27,7 +27,7 @@ end
 
 def add_rating(rating)
   fill_in('Comment', with: rating[:comment])
-  select(rating[:number].to_s, from: "Rating")
+  select(rating[:number], from: "Rating")
   click_button "Create Review"
 end
 
