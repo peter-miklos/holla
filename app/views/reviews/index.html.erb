@@ -1,3 +1,5 @@
+<%= link_to "Return to #{@restaurant.name}", restaurant_path(@restaurant) %>
+
 <% if @reviews.any? %>
   <% @reviews.each do |review| %>
     <h2><%= review.comment %> \ <%= review.rating %></h2>
