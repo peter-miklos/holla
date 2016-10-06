@@ -59,7 +59,23 @@ feature 'restaurants' do
           expect(page).to have_content("error")
         end
       end
+
+      context "When some reviews have been created" do
+
+        before do
+          visit_restaurant_and_add_review(rating: 5, comment: "Good food", restaurant: kfc)
+          visit_restaurant_and_add_review(rating: 2, comment: "terrible food", restaurant: kfc)
+        end
+
+        scenario "You see the average rating for a restaurant" do
+          visit_restaurant(kfc)
+          expect(page).to have_content("Average rating: 2.5")
+        end
+
+      end
     end
+
+
 
     scenario "You can not edit a restaurant you do not own" do
       sign_in(email: "test@example.com")
