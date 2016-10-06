@@ -23,8 +23,8 @@ feature 'restaurants' do
     context "When no user is signed in -" do
 
       scenario "user can view a restaurant page" do
-        visit '/restaurants'
-        click_link 'KFC'
+        visit_restaurant(kfc)
+
         expect(page).to have_content "KFC"
         expect(page).to have_content "chicken and stuff 123"
         expect(current_path).to eq "/restaurants/#{kfc.id}"
@@ -36,8 +36,8 @@ feature 'restaurants' do
       before {sign_in(email: "test@example.com")}
 
       scenario "user can view a restaurant page" do
-        visit '/restaurants'
-        click_link 'KFC'
+        visit_restaurant(kfc)
+
         expect(page).to have_content "KFC"
         expect(current_path).to eq "/restaurants/#{kfc.id}"
       end
@@ -46,7 +46,7 @@ feature 'restaurants' do
         visit '/restaurants'
         click_link "Add restaurant"
         expect(page).to have_content('Name')
-        add_restaurant(name: "Dirty Bones", address: "Kensington Church Street", description: "Dirty-filthy")
+        add_restaurant
         expect(current_path).to eq '/restaurants'
         expect(page).to have_content("Dirty Bones")
         expect(page).not_to have_content("No restaurants yet")
@@ -54,7 +54,7 @@ feature 'restaurants' do
 
       context "trying to add an invalid restaurant" do
         scenario "adding a new restaurant with a too short name" do
-          add_restaurant(name: "Mc", address: "Street", description: "Dirty")
+          add_restaurant(name: "Mc")
           expect(page).not_to have_css("h2", text: "Mc")
           expect(page).to have_content("error")
         end
@@ -63,23 +63,18 @@ feature 'restaurants' do
 
     scenario "You can not edit a restaurant you do not own" do
       sign_in(email: "test@example.com")
-      visit '/restaurants'
-      click_link 'KFC'
+      visit_restaurant(kfc)
+
       expect(page).not_to have_content("Edit KFC")
       expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
 
     scenario "A user can edit a restaurant that she owns" do
       sign_in
-      visit '/restaurants'
-      click_link 'KFC'
-      expect(page).to have_link("Edit KFC")
-      click_link 'Edit KFC'
+      visit_restaurant(kfc)
 
-      fill_in('Name', with: "Dirty Bones")
-      fill_in("Description", with: "Dirty American food")
-      fill_in("Address", with: "West London")
-      click_button 'Update Restaurant'
+      expect(page).to have_link("Edit KFC")
+      edit_restaurant(restaurant: kfc)
       expect(page).to have_content 'Dirty Bones'
       expect(current_path).to eq "/restaurants/#{kfc.id}"
     end

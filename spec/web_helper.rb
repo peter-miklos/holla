@@ -48,11 +48,20 @@ def visit_restaurant_and_edit_review(rating: "5", comment: "awesome", restaurant
   click_button("Update Review")
 end
 
-def add_restaurant(restaurant)
+def add_restaurant(name: "Dirty Bones", address: "Kensington Church Street", description: "Dirty-filthy")
   visit('/restaurants')
   click_link('Add restaurant')
-  fill_in('restaurant_name', with: restaurant[:name])
-  fill_in('restaurant_description', with: restaurant[:description])
-  fill_in('restaurant_address', with: restaurant[:address])
+  fill_in('restaurant_name', with: name)
+  fill_in('restaurant_description', with: description)
+  fill_in('restaurant_address', with: address)
   click_button('Create Restaurant')
+end
+
+def edit_restaurant(name: "Dirty Bones", address: "West London", description: "Dirty American food", restaurant: )
+  visit_restaurant(restaurant)
+  click_link "Edit #{restaurant.name}"
+  fill_in('restaurant_name', with: name)
+  fill_in('restaurant_description', with: description)
+  fill_in('restaurant_address', with: address)
+  click_button 'Update Restaurant'
 end
