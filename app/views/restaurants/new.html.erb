@@ -1,20 +1,41 @@
-<% if @restaurant.errors.any? %>
-  <section id="errors" >
-    <h2> <%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved: </h2>
-    <ul>
-      <% @restaurant.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
+<div class="container">
 
-<%= form_for(@restaurant) do |r| %>
-  <%= r.label :name %>
-  <%= r.text_field(:name) %>
-  <%= r.label :address %>
-  <%= r.text_field(:address) %>
-  <%= r.label :description %>
-  <%= r.text_field(:description) %>
-  <%= r.submit %>
-<% end %>
+  <% if @restaurant.errors.any? %>
+    <section id="errors" >
+      <h2> <%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved: </h2>
+      <ul>
+        <% @restaurant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <h2>Add restaurant</h2>
+
+  <%= form_for(@restaurant) do |r| %>
+    <div class="form-group row">
+      <label for="name" class="col-xs-2 col-form-label"><%= r.label :name %></label>
+      <div class="col-xs-10" id="name">
+        <%= r.text_field(:name, class: "form-control", placeholder: "Add name here") %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="address" class="col-xs-2 col-form-label"><%= r.label :address %></label>
+      <div class="col-xs-10" id="address">
+        <%= r.text_field(:address, class: "form-control", placeholder: "Add address here") %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="description" class="col-xs-2 col-form-label"><%= r.label :description %></label>
+      <div class="col-xs-10" id="description">
+        <%= r.text_area(:description, rows: 5, class: "form-control", placeholder: "Add your description here") %>
+      </div>
+    </div>
+
+    <%= r.submit(class: "btn btn-primary") %>
+  <% end %>
+
+</div>

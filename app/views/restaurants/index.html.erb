@@ -1,8 +1,23 @@
+<div class="container">
+<h2>Restaurants</h2>
+
 <% if @restaurants.any? %>
-  <% @restaurants.each do |restaurant| %>
-    <h2><%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
-  <% end %>
+
+<% @restaurants.each.with_index do |restaurant, index| %>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <b><%= link_to "#{index + 1}.: #{restaurant.name}", restaurant_path(restaurant)%></b>
+    </div>
+    <div class="panel-body">
+      <p>Address: <%= restaurant.address%></p>
+      <p>Description: <%= restaurant.description%></p>
+      Average rating: <%= restaurant.average_rating%>
+    </div>
+  </div>
+
+<% end %>
+
 <% else %>
   No restaurants yet
 <% end %>
-<%= link_to 'Add a restaurant', new_restaurant_path %>
+</div>

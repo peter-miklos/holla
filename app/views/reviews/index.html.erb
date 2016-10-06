@@ -1,10 +1,22 @@
-<%= link_to "Return to #{@restaurant.name}", restaurant_path(@restaurant) %>
+<div class="container">
+  <%= link_to "Return to #{@restaurant.name}", restaurant_path(@restaurant) %>
 
-<% if @reviews.any? %>
-  <% @reviews.each do |review| %>
-    <h2><%= review.comment %> \ <%= review.rating %></h2>
-    <p> Review by <%= review.user.email %> </p>
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <div class="panel panel-info">
+        <div class="panel-heading" id="user_email">
+          <b>Review by <%= review.user.email %> </b>
+        </div>
+        <div class="panel-body">
+          <p>Rating: <%= review.rating%></p>
+          <p>Comment: <%= review.comment%></p>
+          <% if (current_user && current_user.id == review.user_id)%>
+            <%= link_to "Edit review",  edit_restaurant_review_path(@restaurant,review) %></h2>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    No review yet
   <% end %>
-<% else %>
-  No review yet
-<% end %>
+</div>

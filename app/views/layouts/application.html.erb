@@ -6,6 +6,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
   <body>
@@ -14,7 +15,7 @@
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">
-                    <span class="glyphicon glyphicon glyphicon-cutlery"></span>Holla
+                    <span class="glyphicon glyphicon glyphicon-cutlery"></span> Holla
                 </a>
             </div>
 
@@ -36,10 +37,21 @@
     </nav>
 
     <div class="container">
-      <p id="notice"><%= notice %></p>
-      <p id="alert"><%= alert %></p>
-      <%= yield %>
+      <% if notice %>
+        <div class="alert alert-info" id="notice">
+          <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert alert-danger" id="alert">
+          <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
+        </div>
+      <% end %>
     </div>
+
+    <%= yield %>
+
 
 
 

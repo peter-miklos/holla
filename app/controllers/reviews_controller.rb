@@ -1,11 +1,13 @@
 class ReviewsController < ApplicationController
 
   def new
-    if current_user
-      @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    if (current_user && current_user.id != @restaurant.user.id)
       @review = Review.new
+    elsif (current_user && current_user.id == @restaurant.user.id)
+      redirect_to "/restaurants/#{params[:restaurant_id]}", alert: "Sorry, you cannot review your own restaurant"
     else
-      redirect_to new_user_session_path, alert: "Please log in to add a review."
+      redirect_to user_session_path, alert: "Please log in to add a review."
     end
   end
 
@@ -33,6 +35,31 @@ class ReviewsController < ApplicationController
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reviews = Review.where(restaurant_id: params[:restaurant_id])
+  end
+
+  def edit
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = Review.find(params[:id])
+    if current_user.id != @review.user_id
+      redirect_to "/restaurants/#{@restaurant.id}/reviews"
+      flash[:notice] = "Sorry, you can only edit reviews you have created"
+    end
+  end
+
+  def update
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    redirect_to "/restaurants/#{@restaurant.id}/reviews"
+  end
+
+
+  def destroy
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @review = @restaurant.reviews.find(params[:id])
+    @review.destroy
+    redirect_to "/restaurants/#{@restaurant.id}/reviews"
+    flash[:notice] = "Review successfully deleted!"
   end
 
   private

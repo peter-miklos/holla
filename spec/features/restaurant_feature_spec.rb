@@ -2,159 +2,132 @@ require 'rails_helper'
 
 feature 'restaurants' do
 
-let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
-let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
+  let!(:user1){ User.create(email: "laura@troll.com", password: "123456") }
+  let!(:user2){ User.create(email: "test@example.com", password: "123456") }
 
-  before do
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
-  end
+  context "No restaurants exist yet" do
 
-  context 'no restaurants have been added' do
-    scenario 'should display a prompt to add a restaurant' do
-      visit "/restaurants"
-      click_link "Sign out"
-      click_link "Sign in"
-      fill_in('Email', with: 'Laura@troll.com')
-      fill_in('Password', with: '123456')
-      click_button('Log in')
-      visit "/restaurants"
-      click_link("KFC")
-      click_link("Edit KFC")
-      click_link("Delete listing")
+    scenario "It says that there are no restaurants yet" do
+      sign_in
       visit '/restaurants'
-      expect(page).to have_content 'No restaurants yet'
-      expect(page).to have_link 'Add a restaurant'
+      expect(page).to have_content("No restaurants yet")
+      expect(page).to have_link("Add restaurant")
     end
+
   end
 
-  context 'restaurant has been added' do
-    scenario '' do
-      Restaurant.create(name: "Burger King", user_id: user.id)
-      visit '/restaurants'
-      expect(page).to have_content("Burger King")
-      expect(page).not_to have_content("No restaurants yet")
-    end
-  end
+  context "A restaurant exists" do
 
-  context "restaurants are visible in the list of restaurants" do
-    scenario "should display 2 restaurants after creating them" do
-      Restaurant.create(name: "Pizza Express", address: "London", description: "pizza", user_id: user.id)
-      Restaurant.create(name: "Burger King", address: "Bristol", description: "Burger", user_id: user.id)
-      visit "/restaurants"
-      expect(page).to have_content("Pizza Express")
-      expect(page).to have_content("Burger King")
-      expect(page).not_to have_content("No restaurants yet")
-    end
-  end
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user1.id) }
 
-  context "user can add a new restaurant" do
-    scenario 'adding a new restaurant' do
-      visit '/restaurants'
-      click_link "Add a restaurant"
-      expect(page).to have_content('Name')
-      fill_in('restaurant_name', :with => "Dirty Bones")
-      fill_in('restaurant_description', :with => "Dirty")
-      fill_in('restaurant_address', :with => "Kensington Church Street")
-      click_button('Create Restaurant')
-      expect(current_path).to eq '/restaurants'
+    context "When no user is signed in -" do
+
+      scenario "user can view a restaurant page" do
+        visit_restaurant(kfc)
+
+        expect(page).to have_content "KFC"
+        expect(page).to have_content "chicken and stuff 123"
+        expect(current_path).to eq "/restaurants/#{kfc.id}"
+      end
+
     end
 
-    context "invalid restaurant" do
-      scenario "adding a new restaurant with a too short name" do
-        visit "/restaurants"
-        click_link "Add a restaurant"
-        fill_in('restaurant_name', :with => "Mc")
-        fill_in('restaurant_description', :with => "Dirty")
-        fill_in('restaurant_address', :with => "Kensington Church Street")
-        click_button('Create Restaurant')
+    context "When a user is signed in -" do
+      before {sign_in(email: "test@example.com")}
 
-        expect(page).not_to have_css("h2", text: "Mc")
-        expect(page).to have_content("error")
+      scenario "user can view a restaurant page" do
+        visit_restaurant(kfc)
+
+        expect(page).to have_content "KFC"
+        expect(current_path).to eq "/restaurants/#{kfc.id}"
+      end
+
+      scenario 'adding a new restaurant' do
+        visit '/restaurants'
+        click_link "Add restaurant"
+        expect(page).to have_content('Name')
+        add_restaurant
+        expect(current_path).to eq '/restaurants'
+        expect(page).to have_content("Dirty Bones")
+        expect(page).not_to have_content("No restaurants yet")
+      end
+
+      context "trying to add an invalid restaurant" do
+        scenario "adding a new restaurant with a too short name" do
+          add_restaurant(name: "Mc")
+          expect(page).not_to have_css("h2", text: "Mc")
+          expect(page).to have_content("error")
+        end
+      end
+
+      context "When some reviews have been created" do
+
+        before do
+          visit_restaurant_and_add_review(rating: 5, comment: "Good food", restaurant: kfc)
+          sign_out
+          sign_up(email: "james@gmail.com")
+          visit_restaurant_and_add_review(rating: 2, comment: "terrible food", restaurant: kfc)
+          sign_out
+        end
+
+        scenario "You see the average rating for a restaurant" do
+          visit_restaurant(kfc)
+          # click_link("View reviews")
+          # expect(page).to have_content("terrible food")
+          # expect(page).to have_content("Good food")
+          expect(page).to have_content("Average rating: 3.5")
+        end
+
+        scenario "You will see 'No ratings yet for this restaurant' if there are no ratings for a restaurant" do
+          sign_up(email: "james5@gmail.com")
+          add_restaurant(name: "Windows", address: "London")
+          visit("/restaurants")
+          click_link("Windows")
+          expect(page).to have_content("No ratings yet for this restaurant")
+        end
+
       end
     end
 
-  end
 
-  context "viewing restaurants" do
 
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
+    scenario "You can not edit a restaurant you do not own" do
+      sign_in(email: "test@example.com")
+      visit_restaurant(kfc)
 
-    scenario "user can view a restaurant page" do
-      visit '/restaurants'
-      click_link 'KFC'
-      expect(page).to have_content "KFC"
-      expect(current_path).to eq "/restaurants/#{kfc.id}"
+      expect(page).not_to have_content("Edit KFC")
+      expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
-  end
 
-  context "editing restaurants" do
+    scenario "A user can edit a restaurant that she owns" do
+      sign_in
+      visit_restaurant(kfc)
 
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken", user_id: user.id) }
-
-    scenario "user can edit a restaurant" do
-      visit "/restaurants"
-      click_link "Sign out"
-      click_link "Sign in"
-      fill_in('Email', with: 'Laura@troll.com')
-      fill_in('Password', with: '123456')
-      click_button('Log in')
-
-      visit '/restaurants'
-      click_link 'KFC'
-      click_link 'Edit KFC'
-      fill_in('Name', with: "Dirty Bones")
-      fill_in("Description", with: "Dirty American food")
-      fill_in("Address", with: "West London")
-      click_button 'Update Restaurant'
+      expect(page).to have_link("Edit KFC")
+      edit_restaurant(restaurant: kfc)
       expect(page).to have_content 'Dirty Bones'
       expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
 
-    scenario "user cannot edit a restaurant owned by another use" do
+    scenario "A user can delete a restaurants that she owns" do
+      sign_in
       visit '/restaurants'
       click_link 'KFC'
-      expect(current_path).to eq("/restaurants/#{kfc.id}")
-      expect(page).not_to have_content("Edit KFC")
-    end
 
-  scenario "user cannot access the edit page of a restaurant owned by another user" do
-    visit "/restaurants/#{kfc.id}/edit"
-    fill_in('Name', with: "Dirty Bones")
-    fill_in("Description", with: "Dirty American food")
-    fill_in("Address", with: "West London")
-    click_button 'Update Restaurant'
-    expect(page).to have_content("Sorry, you can only edit restaurants you have created")
-  end
-end
+      expect(page).to have_link("Edit KFC")
+      click_link 'Edit KFC'
 
-  context "destroying restaurants" do
-    scenario 'should delete restaurant from db when restaurant deletes in edit page' do
-      visit '/restaurants/new'
-      expect(page).to have_content('Name')
-      fill_in('restaurant_name', :with => "Dirty Bones")
-      fill_in('restaurant_description', :with => "Dirty")
-      fill_in('restaurant_address', :with => "Kensington Church Street")
-      click_button('Create Restaurant')
-      expect(current_path).to eq '/restaurants'
-
-      click_link('Dirty Bones')
-      expect(current_path).to match(/restaurants\/\d+/)
-      expect(page).to have_content("Dirty Bones")
-      click_link("Edit Dirty Bones")
-      expect(current_path).to match(/restaurants\/\d+\/edit/)
+      expect(page).to have_link("Delete listing")
       click_link("Delete listing")
+
       expect(current_path).to eq '/restaurants'
-      expect(page).to_not have_content('Dirty Bones')
-      end
+      expect(page).to_not have_content('KFC')
     end
 
-    scenario "user cannot delete a restaurant owned by another user" do
+    scenario "A user can not delete a restaurant that he does not own" do
+      sign_in(email: "test@example.com")
       visit "/restaurants/#{kfc.id}/edit"
-      expect(page).not_to have_content("Delete listing")
+      expect(page).not_to have_link("Delete listing")
     end
+  end
 end
