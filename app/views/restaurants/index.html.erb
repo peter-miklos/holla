@@ -1,31 +1,23 @@
 <div class="container">
-  <h2>Restaurants</h2>
+<h2>Restaurants</h2>
 
-  <% if @restaurants.any? %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Description</th>
-        <th>Average rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @restaurants.each.with_index do |restaurant, index| %>
-      <tr>
-        <th scope="row"><%= index + 1%></th>
-        <td><%= link_to restaurant.name, restaurant_path(restaurant)%></td>
-        <td><%= restaurant.address%></td>
-        <td><%= restaurant.description%></td>
-        <td><%= restaurant.average_rating%></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% if @restaurants.any? %>
 
-  <% else %>
-    No restaurants yet
-  <% end %>
+<% @restaurants.each.with_index do |restaurant, index| %>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <b><%= link_to "#{index + 1}.: #{restaurant.name}", restaurant_path(restaurant)%></b>
+    </div>
+    <div class="panel-body">
+      <p>Address: <%= restaurant.address%></p>
+      <p>Description: <%= restaurant.description%></p>
+      Average rating: <%= restaurant.average_rating%>
+    </div>
+  </div>
+
+<% end %>
+
+<% else %>
+  No restaurants yet
+<% end %>
 </div>
