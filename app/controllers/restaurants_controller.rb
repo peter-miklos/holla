@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  include RestaurantsHelper
 
   before_action :authenticate_user!, :except => [:index, :show]
 
@@ -25,22 +26,25 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @query_string = stringify(@restaurant.name, @restaurant.address)
-    # @query_string = "Space+Needle,Seattle+WA"
   end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    if current_user.id != @restaurant.user.id
+      flash[:alert] = "Sorry, you can only edit restaurants you have created"
+      redirect_to "/restaurants/#{params[:id]}"
+    end
   end
 
   def update
     @restaurant = Restaurant.find(params[:id])
-    if current_user.id == @restaurant.user.id
-      @restaurant.update(restaurant_params)
-      redirect_to "/restaurants/#{params[:id]}"
-    else
-      flash[:alert] = "Sorry, you can only edit restaurants you have created"
-      redirect_to "/restaurants/#{params[:id]}"
-    end
+    # if current_user.id == @restaurant.user.id
+    @restaurant.update(restaurant_params)
+    redirect_to "/restaurants/#{params[:id]}"
+    # else
+    #   flash[:alert] = "Sorry, you can only edit restaurants you have created"
+    #   redirect_to "/restaurants/#{params[:id]}"
+    # end
   end
 
   def destroy
@@ -55,17 +59,4 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  private
-
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :rating, :address)
-  end
-
-  def stringify(name, address)
-    string = ""
-    string << name.to_s.gsub(" ", "+")
-    string << ","
-    string << address.to_s.gsub(" ", "+")
-    return string
-  end
 end

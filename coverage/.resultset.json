@@ -1,14 +1,14 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/environment.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/application.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/application.rb": [
         1,
         null,
         1,
@@ -35,12 +35,12 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/boot.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/boot.rb": [
         1,
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/spring.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/spring.rb": [
         null,
         null,
         null,
@@ -48,7 +48,7 @@
         null,
         5
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/environments/test.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/environments/test.rb": [
         1,
         null,
         null,
@@ -92,7 +92,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/application_controller_renderer.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/application_controller_renderer.rb": [
         null,
         null,
         null,
@@ -100,7 +100,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/assets.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/assets.rb": [
         null,
         null,
         null,
@@ -113,7 +113,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/backtrace_silencers.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -122,14 +122,14 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/cookies_serializer.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/cookies_serializer.rb": [
         null,
         null,
         null,
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/devise.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/devise.rb": [
         null,
         null,
         1,
@@ -410,13 +410,13 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/filter_parameter_logging.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/filter_parameter_logging.rb": [
         null,
         null,
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/inflections.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -434,13 +434,13 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/mime_types.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/new_framework_defaults.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/new_framework_defaults.rb": [
         null,
         null,
         null,
@@ -466,12 +466,12 @@
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/session_store.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/session_store.rb": [
         null,
         null,
         1
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/initializers/wrap_parameters.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -487,7 +487,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/config/routes.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/config/routes.rb": [
         1,
         null,
         null,
@@ -501,7 +501,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/models/user.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/models/user.rb": [
         1,
         null,
         null,
@@ -524,7 +524,7 @@
         1,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/models/application_record.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/models/application_record.rb": [
         1,
         1,
         null,
@@ -533,88 +533,95 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/helpers/application_helper.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/helpers/restaurants_helper.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/helpers/restaurants_helper.rb": [
+        1,
+        null,
+        1,
+        19,
+        null,
+        null,
+        null
+      ],
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/helpers/reviews_helper.rb": [
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/laurawilson/MakersAcademy/Projects/holla/spec/web_helper.rb": [
+        1,
+        21,
+        21,
+        21,
+        21,
+        21,
+        null,
+        null,
+        1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        null,
+        null,
+        1,
+        5,
+        null,
+        null,
+        1,
+        15,
+        15,
+        null,
+        null,
+        1,
+        8,
+        8,
+        8,
+        null,
+        null,
+        1,
+        8,
+        8,
+        8,
+        null,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         1,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/helpers/reviews_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/spec/web_helper.rb": [
-        1,
-        20,
-        20,
-        20,
-        20,
-        20,
-        null,
-        null,
-        1,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        null,
-        null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        13,
-        13,
-        null,
-        null,
-        1,
-        6,
-        6,
-        6,
-        null,
-        null,
-        1,
-        6,
-        6,
-        6,
-        null,
-        null,
-        1,
-        2,
-        2,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null
-      ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/spec/features/review_feature_spec.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/spec/features/review_feature_spec.rb": [
         1,
         null,
         1,
@@ -725,7 +732,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/spec/features/user_login_feature_spec.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/spec/features/user_login_feature_spec.rb": [
         1,
         null,
         1,
@@ -761,7 +768,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/spec/models/restaurant_spec.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/spec/models/restaurant_spec.rb": [
         1,
         null,
         1,
@@ -781,20 +788,26 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/models/restaurant.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/models/restaurant.rb": [
         1,
         null,
         1,
         null,
         1,
-        40,
+        50,
+        50,
+        50,
+        39,
+        null,
+        11,
+        null,
         null,
         null,
         1,
         1,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/spec/models/review_spec.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/spec/models/review_spec.rb": [
         1,
         null,
         1,
@@ -804,7 +817,7 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/models/review.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/models/review.rb": [
         1,
         1,
         null,
@@ -816,31 +829,32 @@
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/application_controller.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/controllers/application_controller.rb": [
         1,
         1,
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/restaurants_controller.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/controllers/restaurants_controller.rb": [
+        1,
         1,
         null,
         1,
         null,
         1,
-        20,
+        25,
+        null,
+        null,
+        1,
+        4,
         null,
         null,
         1,
         3,
+        3,
         null,
-        null,
-        1,
+        3,
         2,
-        2,
-        null,
-        2,
-        1,
         null,
         1,
         null,
@@ -848,9 +862,8 @@
         null,
         null,
         1,
-        16,
-        16,
-        null,
+        19,
+        19,
         null,
         null,
         1,
@@ -883,100 +896,88 @@
         1,
         null,
         1,
-        3,
+        4,
         null,
-        null,
-        1,
-        16,
-        16,
-        16,
-        16,
-        16,
         null,
         null
       ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/reviews_controller.rb": [
+      "/Users/laurawilson/MakersAcademy/Projects/holla/app/controllers/reviews_controller.rb": [
         1,
+        null,
+        1,
+        10,
+        10,
+        8,
+        2,
+        1,
+        null,
+        1,
+        null,
+        null,
         null,
         1,
         8,
         8,
-        6,
-        2,
-        1,
+        8,
         null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        6,
-        6,
-        6,
-        null,
-        6,
-        5,
-        null,
-        1,
-        1,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        13,
-        13,
-        null,
-        null,
-        1,
-        3,
-        3,
-        3,
-        2,
-        2,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
+        8,
         7,
+        null,
+        1,
+        1,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        15,
+        15,
+        null,
+        null,
+        1,
+        3,
+        3,
+        3,
+        2,
+        2,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        9,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1475761735
+    "timestamp": 1475768685
   }
 }

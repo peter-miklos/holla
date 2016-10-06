@@ -40,10 +40,7 @@ class ReviewsController < ApplicationController
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.find(params[:id])
-    if current_user.id == @review.user_id
-      @restaurant = Restaurant.find(params[:restaurant_id])
-      @review = Review.find(params[:id])
-    else
+    if current_user.id != @review.user_id
       redirect_to "/restaurants/#{@restaurant.id}/reviews"
       flash[:notice] = "Sorry, you can only edit reviews you have created"
     end
@@ -60,14 +57,9 @@ class ReviewsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.find(params[:id])
-    if current_user.id == @review.user_id
-      @review.destroy
-      redirect_to "/restaurants/#{@restaurant.id}/reviews"
-      flash[:notice] = "Review successfully deleted!"
-    else
-      redirect_to "/restaurants/#{@restaurant.id}/reviews"
-      flash[:notice] = "Sorry, you can only delete reviews you have created"
-    end
+    @review.destroy
+    redirect_to "/restaurants/#{@restaurant.id}/reviews"
+    flash[:notice] = "Review successfully deleted!"
   end
 
   private
