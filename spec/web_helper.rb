@@ -1,4 +1,4 @@
-def sign_in(email: "Laura@troll.com", password: "123456")
+def sign_in(email: "laura@troll.com", password: "123456")
   visit('/')
   click_link('Sign in')
   fill_in('user_email', with: email)
@@ -19,10 +19,33 @@ def sign_out
   click_link('Sign out')
 end
 
-def add_rating(rating)
-  fill_in('Comment', with: rating[:comment])
-  select(rating[:number], from: "Rating")
+def visit_restaurant(restaurant)
+  visit("/restaurants")
+  click_link(restaurant.name)
+end
+
+def visit_restaurant_and_add_review(rating: "4", comment: "Tasty chicken", restaurant: )
+  visit_restaurant(restaurant)
+  click_link "Add review"
+  add_review(rating: rating, comment: comment, restaurant: restaurant)
+end
+
+def add_review(rating: "4", comment: "Tasty chicken", restaurant: )
+  fill_in('Comment', with: comment)
+  select(rating, from: "Rating")
   click_button "Create Review"
+end
+
+def visit_restaurant_and_click_edit_review(restaurant)
+  visit("/restaurants/#{restaurant.id}/reviews/")
+  click_link("Edit review")
+end
+
+def visit_restaurant_and_edit_review(rating: "5", comment: "awesome", restaurant: )
+  visit_restaurant_and_click_edit_review(restaurant)
+  fill_in("Comment", with: comment)
+  select(rating, from: "Rating")
+  click_button("Update Review")
 end
 
 def add_restaurant(restaurant)

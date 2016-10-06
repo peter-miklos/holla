@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'restaurants' do
 
-  let!(:user1){ User.create(email: "Laura@troll.com", password: "123456") }
+  let!(:user1){ User.create(email: "laura@troll.com", password: "123456") }
   let!(:user2){ User.create(email: "test@example.com", password: "123456") }
 
   context "No restaurants exist yet" do
