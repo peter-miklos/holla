@@ -24,6 +24,8 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @query_string = stringify(@restaurant.name, @restaurant.address)
+    # @query_string = "Space+Needle,Seattle+WA"
   end
 
   def edit
@@ -56,7 +58,14 @@ class RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-   params.require(:restaurant).permit(:name, :description, :rating, :address)
+    params.require(:restaurant).permit(:name, :description, :rating, :address)
   end
 
+  def stringify(name, address)
+    string = ""
+    string << name.to_s.gsub(" ", "+")
+    string << ","
+    string << address.to_s.gsub(" ", "+")
+    return string
+  end
 end
