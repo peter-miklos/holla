@@ -3,7 +3,7 @@
 <% if @reviews.any? %>
   <% @reviews.each do |review| %>
     <h2><%= review.comment %> \ <%= review.rating %></h2>
-    <p> Review by <%= review.user.email %> </p>
+    <p id="user_email"> Review by <%= review.user.email %> </p>
     <% if (current_user && current_user.id == review.user_id)%>
       <%= link_to "Edit review",  edit_restaurant_review_path(@restaurant,review) %></h2>
     <% end %>
