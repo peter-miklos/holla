@@ -64,12 +64,17 @@ feature 'restaurants' do
 
         before do
           visit_restaurant_and_add_review(rating: 5, comment: "Good food", restaurant: kfc)
+          sign_out
+          sign_up(email: "james@gmail.com")
           visit_restaurant_and_add_review(rating: 2, comment: "terrible food", restaurant: kfc)
         end
 
         scenario "You see the average rating for a restaurant" do
           visit_restaurant(kfc)
-          expect(page).to have_content("Average rating: 2.5")
+          # click_link("View reviews")
+          # expect(page).to have_content("terrible food")
+          # expect(page).to have_content("Good food")
+          expect(page).to have_content("Average rating: 3.5")
         end
 
       end
