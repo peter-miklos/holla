@@ -52,6 +52,15 @@ feature 'restaurants' do
         expect(page).not_to have_content("No restaurants yet")
       end
 
+      scenario "user can quit from adding a new restaurant w/o saving it" do
+        visit '/restaurants'
+        click_link("Add restaurant")
+        expect(page).to have_content("Cancel")
+
+        click_link("Cancel")
+        expect(current_path).to eq("/restaurants")
+      end
+
       context "trying to add an invalid restaurant" do
         scenario "adding a new restaurant with a too short name" do
           add_restaurant(name: "Mc")
