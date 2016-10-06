@@ -1,7 +1,7 @@
 <p>Name: <%= @restaurant.name %></p>
 <p>Description: <%= @restaurant.description %></p>
 <p>Address: <%= @restaurant.address %></p>
-<p>Average Rating: <%= @restaurant.rating %></p>
+<p>Average rating: <%= @restaurant.average_rating %></p>
 <% if (current_user && current_user.id == @restaurant.user_id)%>
   <%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant) %>
 <% end %>
