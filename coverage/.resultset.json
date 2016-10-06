@@ -527,6 +527,10 @@
       "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/models/application_record.rb": [
         1,
         1,
+        null,
+        1,
+        null,
+        null,
         null
       ],
       "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/helpers/application_helper.rb": [
@@ -783,7 +787,7 @@
         1,
         null,
         1,
-        16,
+        40,
         null,
         null,
         1,
@@ -812,13 +816,19 @@
         null,
         null
       ],
+      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/application_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/restaurants_controller.rb": [
         1,
         null,
         1,
         null,
         1,
-        73,
+        20,
         null,
         null,
         1,
@@ -839,6 +849,8 @@
         null,
         1,
         16,
+        16,
+        null,
         null,
         null,
         1,
@@ -874,11 +886,12 @@
         3,
         null,
         null,
-        null
-      ],
-      "/Users/petermiklos/Google Drive/coding/ruby/makers/challenges/course/week8/holla/app/controllers/application_controller.rb": [
         1,
-        1,
+        16,
+        16,
+        16,
+        16,
+        16,
         null,
         null
       ],
@@ -964,6 +977,6 @@
         null
       ]
     },
-    "timestamp": 1475754244
+    "timestamp": 1475758985
   }
 }
