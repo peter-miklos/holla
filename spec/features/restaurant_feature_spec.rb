@@ -67,6 +67,7 @@ feature 'restaurants' do
           sign_out
           sign_up(email: "james@gmail.com")
           visit_restaurant_and_add_review(rating: 2, comment: "terrible food", restaurant: kfc)
+          sign_out
         end
 
         scenario "You see the average rating for a restaurant" do
@@ -75,6 +76,14 @@ feature 'restaurants' do
           # expect(page).to have_content("terrible food")
           # expect(page).to have_content("Good food")
           expect(page).to have_content("Average rating: 3.5")
+        end
+
+        scenario "You will see 'No ratings yet for this restaurant' if there are no ratings for a restaurant" do
+          sign_up(email: "james5@gmail.com")
+          add_restaurant(name: "Windows", address: "London")
+          visit("/restaurants")
+          click_link("Windows")
+          expect(page).to have_content("No ratings yet for this restaurant")
         end
 
       end
