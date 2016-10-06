@@ -17,6 +17,15 @@ feature "reviews" do
       expect(page).to have_content("Tasty chicken")
     end
 
+    scenario "user can quit from add new review page w/o saving it" do
+      visit_restaurant(kfc)
+      click_link("Add review")
+      expect(page).to have_content("Cancel")
+
+      click_link("Cancel")
+      expect(current_path).to eq("/restaurants/#{kfc.id}")
+    end
+
     scenario "users can see who review belongs to" do
       visit_restaurant_and_add_review(restaurant: kfc)
       expect(within('div#user_email') {have_content("laura@troll.com")})
@@ -83,6 +92,14 @@ feature "reviews" do
         expect(current_path).to eq("/restaurants/#{bk.id}/reviews")
         expect(page).to_not have_content("Good onion rings")
         expect(page).to have_content("awesome")
+      end
+
+      scenario "user can quit from add edit review page w/o saving it" do
+        visit_restaurant_and_click_edit_review(bk)
+        expect(page).to have_content("Cancel")
+
+        click_link("Cancel")
+        expect(current_path).to eq("/restaurants/#{bk.id}/reviews")
       end
 
       scenario "user cannot see edit review button for other users review" do
