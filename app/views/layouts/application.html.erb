@@ -45,23 +45,23 @@
     </nav>
 
     <div class="container-fluid">
-      <% if notice %>
-        <div class="alert alert-info" id="notice">
-          <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+      <div class="row">
+        <div class="col-md-12">
+          <% if notice %>
+            <div class="alert alert-info" id="notice">
+              <span class="glyphicon glyphicon-info-sign"></span> <%= notice %>
+            </div>
+          <% end %>
+
+          <% if alert %>
+            <div class="alert alert-danger" id="alert">
+              <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
+            </div>
+          <% end %>
+
+          <%= yield %>
         </div>
-      <% end %>
-
-      <% if alert %>
-        <div class="alert alert-danger" id="alert">
-          <span class="glyphicon glyphicon-exclamation-sign"></span> <%= alert %>
-        </div>
-      <% end %>
-    </div>
-
-    <%= yield %>
-
-
-
+      </div>
 
   </body>
 </html>
