@@ -4,7 +4,6 @@ class Restaurant < ApplicationRecord
 
   def average_rating
     restaurant_reviews = Review.where(restaurant_id: self.id)
-    puts restaurant_reviews
     if restaurant_reviews.length == 0
       return "No ratings yet for this restaurant"
     else
