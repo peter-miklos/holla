@@ -19,7 +19,7 @@ feature "reviews" do
 
     scenario "users can see who review belongs to" do
       visit_restaurant_and_add_review(restaurant: kfc)
-      expect(within('p#user_email') {have_content("laura@troll.com")})
+      expect(within('div#user_email') {have_content("laura@troll.com")})
     end
 
     scenario "A user can not add more than one review for any restaurant" do
