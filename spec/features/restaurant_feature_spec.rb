@@ -18,7 +18,8 @@ feature 'restaurants' do
 
   context "A restaurant exists" do
 
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user1.id) }
+    let!(:bk){ Restaurant.create(name: "Burger King", address: "London", description: "burger", user_id: user1.id) }
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user2.id) }
 
     context "When no user is signed in -" do
 
@@ -33,7 +34,8 @@ feature 'restaurants' do
     end
 
     context "When a user is signed in -" do
-      before {sign_in(email: "test@example.com")}
+
+      before {sign_in(email: "laura@troll.com")}
 
       scenario "user can view a restaurant page" do
         visit_restaurant(kfc)
@@ -81,9 +83,6 @@ feature 'restaurants' do
 
         scenario "You see the average rating for a restaurant" do
           visit_restaurant(kfc)
-          # click_link("View reviews")
-          # expect(page).to have_content("terrible food")
-          # expect(page).to have_content("Good food")
           expect(page).to have_content("Average rating: 3.5")
         end
 
@@ -96,47 +95,54 @@ feature 'restaurants' do
         end
 
       end
-    end
 
+      context "Edit restaurant" do
 
+        scenario "A user can edit a restaurant that she owns" do
+          visit_restaurant(bk)
 
-    scenario "You can not edit a restaurant you do not own" do
-      sign_in(email: "test@example.com")
-      visit_restaurant(kfc)
+          expect(page).to have_link("Edit Burger King")
+          edit_restaurant(restaurant: bk)
+          expect(page).to have_content 'Dirty Bones'
+          expect(current_path).to eq "/restaurants/#{bk.id}"
+        end
 
-      expect(page).not_to have_content("Edit KFC")
-      expect(current_path).to eq("/restaurants/#{kfc.id}")
-    end
+        scenario "user can quit from editing a restaurant w/o saving it" do
+          visit_restaurant(bk)
+          click_link("Edit Burger King")
+          expect(page).to have_content("Cancel")
 
-    scenario "A user can edit a restaurant that she owns" do
-      sign_in
-      visit_restaurant(kfc)
+          click_link("Cancel")
+          expect(current_path).to eq("/restaurants/#{bk.id}")
+        end
 
-      expect(page).to have_link("Edit KFC")
-      edit_restaurant(restaurant: kfc)
-      expect(page).to have_content 'Dirty Bones'
-      expect(current_path).to eq "/restaurants/#{kfc.id}"
-    end
+        scenario "You can not edit a restaurant you do not own" do
+          visit_restaurant(kfc)
 
-    scenario "A user can delete a restaurants that she owns" do
-      sign_in
-      visit '/restaurants'
-      click_link 'KFC'
+          expect(page).not_to have_content("Edit KFC")
+          expect(current_path).to eq("/restaurants/#{kfc.id}")
+        end
+      end
 
-      expect(page).to have_link("Edit KFC")
-      click_link 'Edit KFC'
+      context "Delete restaurant" do
 
-      expect(page).to have_link("Delete listing")
-      click_link("Delete listing")
+        scenario "A user can delete a restaurants that she owns" do
+          visit_restaurant(bk)
+          expect(page).to have_link("Edit Burger King")
+          click_link 'Edit Burger King'
 
-      expect(current_path).to eq '/restaurants'
-      expect(page).to_not have_content('KFC')
-    end
+          expect(page).to have_link("Delete listing")
+          click_link("Delete listing")
 
-    scenario "A user can not delete a restaurant that he does not own" do
-      sign_in(email: "test@example.com")
-      visit "/restaurants/#{kfc.id}/edit"
-      expect(page).not_to have_link("Delete listing")
+          expect(current_path).to eq '/restaurants'
+          expect(page).to_not have_content('Burger King')
+        end
+
+        scenario "A user can not delete a restaurant that he does not own" do
+          visit "/restaurants/#{kfc.id}/edit"
+          expect(page).not_to have_link("Delete listing")
+        end
+      end
     end
   end
 end

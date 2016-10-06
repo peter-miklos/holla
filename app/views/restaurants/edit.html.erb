@@ -24,6 +24,7 @@
     </div>
 
     <%= r.submit(class: "btn btn-primary") %>
+    <%= link_to "Cancel", restaurant_path(@restaurant) %>
   <% end %>
   <br />
   <% if (current_user && current_user.id == @restaurant.user_id)%>
