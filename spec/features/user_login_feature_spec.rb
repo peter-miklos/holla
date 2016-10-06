@@ -18,7 +18,7 @@ feature "user login" do
 
   context "user signed in on the homepage" do
     before do
-      sign_up(email: 'test@example.com', password: 'testtest')
+      sign_up(email: 'test@example.com', password: '123456')
       visit('/')
     end
 

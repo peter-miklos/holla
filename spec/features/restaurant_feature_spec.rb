@@ -2,10 +2,13 @@ require 'rails_helper'
 
 feature 'restaurants' do
 
+  let!(:user1){ User.create(email: "laura@troll.com", password: "123456") }
+  let!(:user2){ User.create(email: "test@example.com", password: "123456") }
+
   context "No restaurants exist yet" do
 
     scenario "It says that there are no restaurants yet" do
-      sign_up(email: "test@example.com", password: "testtest")
+      sign_in
       visit '/restaurants'
       expect(page).to have_content("No restaurants yet")
       expect(page).to have_link("Add restaurant")
@@ -14,14 +17,14 @@ feature 'restaurants' do
   end
 
   context "A restaurant exists" do
-    let!(:user){ User.create(email: "Laura@troll.com", password: "123456") }
-    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user.id) }
+
+    let!(:kfc){ Restaurant.create(name: "KFC", address: "London", description: "chicken and stuff 123", user_id: user1.id) }
 
     context "When no user is signed in -" do
 
       scenario "user can view a restaurant page" do
-        visit '/restaurants'
-        click_link 'KFC'
+        visit_restaurant(kfc)
+
         expect(page).to have_content "KFC"
         expect(page).to have_content "chicken and stuff 123"
         expect(current_path).to eq "/restaurants/#{kfc.id}"
@@ -30,13 +33,11 @@ feature 'restaurants' do
     end
 
     context "When a user is signed in -" do
-      before do
-        sign_up(email: "test@example.com", password: "testtest")
-      end
+      before {sign_in(email: "test@example.com")}
 
       scenario "user can view a restaurant page" do
-        visit '/restaurants'
-        click_link 'KFC'
+        visit_restaurant(kfc)
+
         expect(page).to have_content "KFC"
         expect(current_path).to eq "/restaurants/#{kfc.id}"
       end
@@ -45,7 +46,7 @@ feature 'restaurants' do
         visit '/restaurants'
         click_link "Add restaurant"
         expect(page).to have_content('Name')
-        add_restaurant(name: "Dirty Bones", address: "Kensington Church Street", description: "Dirty-filthy")
+        add_restaurant
         expect(current_path).to eq '/restaurants'
         expect(page).to have_content("Dirty Bones")
         expect(page).not_to have_content("No restaurants yet")
@@ -53,7 +54,7 @@ feature 'restaurants' do
 
       context "trying to add an invalid restaurant" do
         scenario "adding a new restaurant with a too short name" do
-          add_restaurant(name: "Mc", address: "Street", description: "Dirty")
+          add_restaurant(name: "Mc")
           expect(page).not_to have_css("h2", text: "Mc")
           expect(page).to have_content("error")
         end
@@ -61,30 +62,25 @@ feature 'restaurants' do
     end
 
     scenario "You can not edit a restaurant you do not own" do
-      sign_up(email: "test@example.com", password: "testtest")
-      visit '/restaurants'
-      click_link 'KFC'
+      sign_in(email: "test@example.com")
+      visit_restaurant(kfc)
+
       expect(page).not_to have_content("Edit KFC")
       expect(current_path).to eq("/restaurants/#{kfc.id}")
     end
 
     scenario "A user can edit a restaurant that she owns" do
-      sign_in(email: 'Laura@troll.com', password: '123456')
-      visit '/restaurants'
-      click_link 'KFC'
-      expect(page).to have_link("Edit KFC")
-      click_link 'Edit KFC'
+      sign_in
+      visit_restaurant(kfc)
 
-      fill_in('Name', with: "Dirty Bones")
-      fill_in("Description", with: "Dirty American food")
-      fill_in("Address", with: "West London")
-      click_button 'Update Restaurant'
+      expect(page).to have_link("Edit KFC")
+      edit_restaurant(restaurant: kfc)
       expect(page).to have_content 'Dirty Bones'
       expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
 
     scenario "A user can delete a restaurants that she owns" do
-      sign_in(email: 'Laura@troll.com', password: '123456')
+      sign_in
       visit '/restaurants'
       click_link 'KFC'
 
@@ -99,7 +95,7 @@ feature 'restaurants' do
     end
 
     scenario "A user can not delete a restaurant that he does not own" do
-      sign_up(email: "test@example.com", password: "testtest")
+      sign_in(email: "test@example.com")
       visit "/restaurants/#{kfc.id}/edit"
       expect(page).not_to have_link("Delete listing")
     end
