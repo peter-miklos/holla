@@ -12,17 +12,6 @@ class Restaurant < ApplicationRecord
     end
   end
 
-  # def average_rating
-  #   restaurant_reviews = Review.where.(user_id: self.user_id).average
-  #   restaurant_reviews
-  # end
-  #
-  # def average_rating(restaurant_id)
-  #   restaurant_ratings = Review.all(:select => "reviews.*,
-  #                                   AVG(reviews.rating)
-  #                                   WHERE reviews.user_id EQUALS #{user_id}"
-  # end
-
   has_many :reviews, dependent: :destroy
   belongs_to :user
 end
