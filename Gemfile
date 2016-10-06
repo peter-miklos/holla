@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'coveralls', require: false
+gem 'simplecov'
 gem 'dotenv-rails'
 gem 'omniauth-facebook'
 gem 'devise'
