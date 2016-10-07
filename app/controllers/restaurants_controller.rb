@@ -1,4 +1,3 @@
-require_relative '../../lib/RatingStars.rb'
 
 class RestaurantsController < ApplicationController
   include RestaurantsHelper
@@ -7,6 +6,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @restaurants = Restaurant.search(params[:keyword]) if params[:keyword]
   end
 
   def new

@@ -7,10 +7,10 @@ feature 'restaurants' do
 
   context "No restaurants exist yet" do
 
-    scenario "It says that there are no restaurants yet" do
+    scenario "It says that there is no restaurant" do
       sign_in
       visit '/restaurants'
-      expect(page).to have_content("No restaurants yet")
+      expect(page).to have_content("No restaurant found")
       expect(page).to have_link("Add restaurant")
     end
 
@@ -51,7 +51,7 @@ feature 'restaurants' do
         add_restaurant
         expect(current_path).to eq '/restaurants'
         expect(page).to have_content("Dirty Bones")
-        expect(page).not_to have_content("No restaurants yet")
+        expect(page).not_to have_content("No restaurant found")
       end
 
       scenario "user can quit from adding a new restaurant w/o saving it" do
