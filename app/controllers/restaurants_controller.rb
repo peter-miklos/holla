@@ -1,4 +1,3 @@
-
 class RestaurantsController < ApplicationController
   include RestaurantsHelper
 
