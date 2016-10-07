@@ -1,16 +1,14 @@
 require 'rails_helper'
-require_relative '../lib/RatingStars.rb'
+require_relative '../app/helpers/restaurants_helper.rb'
 
-include RatingStars
+include RestaurantsHelper
 
-describe RatingStars do
-  star_full = "./app/assets/images/star_icons/1475788594_star-4.png"
-  star_three_quarters = "./app/assets/images/star_icons/1475788594_star-3.png"
-  star_half = "./app/assets/images/star_icons/1475788594_star-2.png"
-  star_quarter = "./app/assets/images/star_icons/1475788594_star-2.png"
-  star_empty = "./app/assets/images/star_icons/1475788594_star-0.png"
-
-
+describe RestaurantsHelper do
+  star_full = "1475788591_star-4.png"
+  star_three_quarters = "1475788594_star-3.png"
+  star_half = "1475788597_star-2.png"
+  star_quarter = "1475788601_star-1.png"
+  star_empty = "1475788594_star-0.png"
 
   it 'returns the correct array when given 4.8' do
     input = 4.8
