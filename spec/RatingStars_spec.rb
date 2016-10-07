@@ -19,33 +19,39 @@ describe RatingStars do
   end
 
   it 'returns the correct array when given 2.4' do
-    input = 4.8
+    input = 2.4
     expect(return_stars(input)).to eq(
-      [star_full, star_full, star_full, star_full, star_three_quarters])
+      [star_full, star_full, star_half, star_empty, star_empty])
   end
 
-  it 'returns the correct array when given 3.6' do
-    input = 3.6
+  it 'returns the correct array when given 3.65' do
+    input = 3.65
     expect(return_stars(input)).to eq(
-      [star_full, star_full, star_full, star_full, star_three_quarters])
+      [star_full, star_full, star_full, star_three_quarters, star_empty])
   end
 
   it 'returns the correct array when given 0.1' do
     input = 0.1
     expect(return_stars(input)).to eq(
-      [star_full, star_full, star_full, star_full, star_three_quarters])
+      [star_empty, star_empty, star_empty, star_empty, star_empty])
   end
 
   it 'returns the correct array when given 0.2' do
     input = 0.2
     expect(return_stars(input)).to eq(
-      [star_full, star_full, star_full, star_full, star_three_quarters])
+      [star_quarter, star_empty, star_empty, star_empty, star_empty])
   end
 
   it 'returns the correct array when given 0.3' do
     input = 0.3
     expect(return_stars(input)).to eq(
-      [star_full, star_full, star_full, star_full, star_three_quarters])
+      [star_quarter, star_empty, star_empty, star_empty, star_empty])
+  end
+
+  it 'returns the correct array when given 0.3' do
+    input = 0.4
+    expect(return_stars(input)).to eq(
+      [star_half, star_empty, star_empty, star_empty, star_empty])
   end
 
 end
