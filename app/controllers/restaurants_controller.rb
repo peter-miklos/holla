@@ -1,3 +1,5 @@
+require_relative '../../lib/RatingStars.rb'
+
 class RestaurantsController < ApplicationController
   include RestaurantsHelper
 
@@ -26,6 +28,7 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @query_string = stringify(@restaurant.name, @restaurant.address)
+    @stars_array = return_stars(@restaurant.average_rating)
   end
 
   def edit
@@ -38,13 +41,8 @@ class RestaurantsController < ApplicationController
 
   def update
     @restaurant = Restaurant.find(params[:id])
-    # if current_user.id == @restaurant.user.id
     @restaurant.update(restaurant_params)
     redirect_to "/restaurants/#{params[:id]}"
-    # else
-    #   flash[:alert] = "Sorry, you can only edit restaurants you have created"
-    #   redirect_to "/restaurants/#{params[:id]}"
-    # end
   end
 
   def destroy
