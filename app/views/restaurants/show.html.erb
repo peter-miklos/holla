@@ -19,16 +19,6 @@
 
   <%= link_to "View reviews", restaurant_reviews_path(@restaurant) %>
 
-  <% if (current_user && current_user.id == @restaurant.user_id)%>
-    <%= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant) %>
-  <% end %>
-
-  <% if (current_user && current_user.id != @restaurant.user_id)%>
-    <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
-  <% end %>
-
-  <%= link_to "View reviews", restaurant_reviews_path(@restaurant) %>
-
   <div class="google-maps">
     <iframe
       src="<%= 'https://www.google.com/maps/embed/v1/place?key=' + ENV["GOOGLE_API_KEY"] + '&q='+ @query_string %>" allowfullscreen>
