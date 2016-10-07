@@ -11,6 +11,14 @@ class Restaurant < ApplicationRecord
     end
   end
 
+  def self.search(keyword)
+   if keyword
+     where("LOWER(name) LIKE ?", "%#{keyword.downcase}%")
+   else
+     find(:all)
+   end
+ end
+
   has_many :reviews, dependent: :destroy
   belongs_to :user
 end

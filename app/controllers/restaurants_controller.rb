@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @restaurants = Restaurant.search(params[:keyword]) if params[:keyword]
   end
 
   def new
