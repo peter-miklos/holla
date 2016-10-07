@@ -23,6 +23,8 @@ module RestaurantsHelper
       return array
     end
 
+    input = (input / 0.25).round * 0.25
+
     5.times do
       if input - 1.0 >= 0
         array.push(star_full)
