@@ -1,5 +1,3 @@
-require_relative '../../lib/RatingStars.rb'
-
 class RestaurantsController < ApplicationController
   include RestaurantsHelper
 
